@@ -47,6 +47,7 @@ export class App implements AfterViewInit {
   private renderCaptcha(): void {
     if (window.AwsWafCaptcha) {
       window.AwsWafCaptcha.renderCaptcha(this.captcha.nativeElement, {
+        apiKey: environment.aws.waf.apiKey,
         onSuccess: (token: string) => {
           this.messageSuccess.set(`Captcha successfully validated! Token: ${token}`);
           this.messageError.set('');
