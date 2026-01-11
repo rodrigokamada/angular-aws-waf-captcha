@@ -33,4 +33,4 @@ jobs:
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: dist/angular-aws-waf-captcha/browser
+        publish_dir: dist/angular-aws-waf-captcha
