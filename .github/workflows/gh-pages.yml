@@ -28,9 +28,11 @@ jobs:
     - name: Build
       run: npm run build:prod
 
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v4
+      with:
+        path: ./dist/angular-aws-waf-captcha/browser
+
     - name: Deploy
       if: success()
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: dist/angular-aws-waf-captcha/browser
+      uses: actions/deploy-pages@v4
