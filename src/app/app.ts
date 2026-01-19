@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, model } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, model, viewChild } from '@angular/core';
 
 import { environment } from '../environments/environment';
 
@@ -17,7 +17,7 @@ declare global {
 })
 export class App implements AfterViewInit {
 
-  @ViewChild('captcha') captcha!: ElementRef;
+  captchaRef = viewChild<ElementRef<HTMLDivElement>>('captcha');
   messageSuccess = model<string>('');
   messageError = model<string>('');
 
@@ -45,8 +45,10 @@ export class App implements AfterViewInit {
   }
 
   private renderCaptcha(): void {
-    if (window.AwsWafCaptcha) {
-      window.AwsWafCaptcha.renderCaptcha(this.captcha.nativeElement, {
+    const captchaElementRef = this.captchaRef();
+
+    if (window.AwsWafCaptcha && captchaElementRef) {
+      window.AwsWafCaptcha.renderCaptcha(captchaElementRef.nativeElement, {
         apiKey: environment.aws.waf.apiKey,
         onSuccess: (token: string) => {
           this.messageSuccess.set(`Captcha successfully validated! Token: ${token}`);
